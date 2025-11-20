@@ -1,0 +1,227 @@
+/* 1. Définition de la palette (à ajuster si besoin) */
+:root {
+    --couleur-primaire: #002D62;   /* Bleu roi/profond (bordures, fond mat) */
+    --couleur-secondaire: #E04085; /* Rose vif (titres, actions, accents) */
+    --couleur-texte-clair: #F0F4F8; /* Blanc cassé pour le texte principal */
+    --couleur-texte-sombre: #1A2B3A; /* Gris très foncé/bleu mat pour le fond */
+    --couleur-succes: #3CB371;     /* Vert (résultats positifs) */
+    --couleur-echec: #DC3545;      /* Rouge (résultats négatifs / suppression) */
+}
+
+/* 2. Styles généraux pour le site (web) */
+body {
+    font-family: 'Gotham Bold Custom', sans-serif;
+    color: var(--couleur-texte-clair); 
+    background-color: var(--couleur-texte-sombre); 
+    margin: 0; padding: 0;
+    display: flex; flex-direction: column; align-items: center; min-height: 100vh;
+}
+header { text-align: center; padding: 30px 20px 20px; width: 100%; }
+.logo {
+    display: block; margin: 0 auto 20px auto; max-width: 200px; height: auto;
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5)); 
+}
+main {
+    background-color: rgba(0, 0, 0, 0.6); 
+    padding: 40px;
+    border-radius: 12px;
+    border: 3px solid var(--couleur-primaire); 
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
+    width: 90%; max-width: 800px; margin-bottom: 50px;
+}
+h1, h2 { color: var(--couleur-secondaire); text-align: center; margin-bottom: 30px; }
+.input-group.info-compte {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 30px; padding: 10px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+.input-group.info-compte label { flex-basis: 35%; font-size: 1.1em; }
+.input-group.info-compte input { flex-grow: 1.5; font-size: 1.1em; }
+.ligne-calcul {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+    padding: 10px 0; margin-bottom: 15px; position: relative;
+}
+.demande-input, .condamnation-input {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 15px; gap: 20px;
+}
+label { flex-basis: 30%; min-width: 150px; font-weight: 500; }
+
+input, select {
+    flex-grow: 1; min-width: 100px;
+    padding: 10px 15px; 
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    background-color: var(--couleur-texte-sombre);
+    color: var(--couleur-texte-clair);
+    font-family: Arial, sans-serif;
+    transition: all 0.2s;
+}
+input:focus, select:focus { border-color: var(--couleur-secondaire); background-color: #333; outline: none; }
+.input-autre, .input-autre-resultat { flex-grow: 1.5; }
+
+/* Styles pour le symbole Euro */
+.input-with-euro {
+    position: relative;
+    flex-grow: 1; 
+    min-width: 100px;
+}
+.input-with-euro input {
+    width: 100%;
+    box-sizing: border-box;
+    padding-right: 30px; 
+}
+.euro-suffix {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--couleur-texte-clair);
+    pointer-events: none;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+/* Styles esthétiques pour les boutons */
+button {
+    padding: 12px 20px;
+    border: 1px solid var(--couleur-primaire); 
+    border-radius: 6px;
+    background-image: linear-gradient(to bottom, var(--couleur-primaire), #001F4F);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    color: white;
+    font-family: 'Gotham Bold Custom', sans-serif;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+button:hover {
+    background-image: linear-gradient(to bottom, #003D7A, var(--couleur-primaire));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
+}
+button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+#boutonCalcul, #ajouterLigne {
+    background-image: linear-gradient(to bottom, var(--couleur-secondaire), #C03975);
+    border: 1px solid var(--couleur-secondaire);
+    width: 100%;
+    margin-top: 30px;
+}
+#boutonCalcul:hover, #ajouterLigne:hover {
+    background-image: linear-gradient(to bottom, #C03975, var(--couleur-secondaire));
+}
+.supprimer-ligne {
+    background-image: linear-gradient(to bottom, var(--couleur-echec), #A02B37);
+    border: 1px solid var(--couleur-echec);
+    padding: 5px 10px;
+    position: absolute; top: 5px; right: 5px; font-size: 0.8em;
+}
+.supprimer-ligne:hover {
+    background-image: linear-gradient(to bottom, #A02B37, var(--couleur-echec));
+}
+
+/* Résultats (Web) */
+.resultat-ligne {
+    margin-bottom: 12px; 
+    padding: 8px 0;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+}
+.resultat-valeur.resultat-positif { color: var(--couleur-succes); }
+.resultat-valeur.resultat-negatif { color: var(--couleur-echec); }
+.action-imprimable { color: var(--couleur-texte-clair); }
+.hidden { display: none !important; }
+
+/* 3. Style spécifique à l'impression (Optimisation avec cases et €) */
+@media print {
+    .non-imprimable { display: none !important; }
+    
+    body { background: white !important; color: black !important; font-family: Arial, sans-serif; padding: 20px; }
+    header { display: block !important; text-align: center; padding: 0 0 15px 0; border-bottom: 2px solid #ccc; margin-bottom: 15px; }
+    .logo { display: block !important; max-width: 150px !important; margin: 0 auto 5px auto !important; filter: none; }
+    h1 { color: black !important; font-size: 1.2em; }
+    main { background-color: white !important; box-shadow: none !important; border: none !important; padding: 0; max-width: none; width: 100%; }
+    h2 { color: black !important; text-align: left; border-bottom: 1px solid black; padding-bottom: 5px; margin-top: 10px; margin-bottom: 10px; }
+
+    /* Numéro de Compte Locataire (case) - COULEUR TEXTE UNIFORME NOIRE */
+    .input-group.info-compte { 
+        justify-content: flex-start; border: 1px solid #999; background-color: #f0f0f0; 
+        padding: 5px 10px; margin-bottom: 20px; border-radius: 4px;
+    }
+    .input-group.info-compte label { 
+        font-weight: bold; color: black !important; margin-right: 15px; flex-basis: auto; min-width: 180px;
+    }
+    .input-group.info-compte input { 
+        border: 1px solid #666; background-color: white; padding: 2px 5px; font-weight: bold;
+        flex-grow: 0; min-width: 250px;
+        color: black !important; /* Force la couleur du texte complété en noir */
+    }
+
+    /* Demandes/Condamnations (cases resserrées) */
+    .ligne-calcul { border: 1px solid #ccc; padding: 5px; margin-bottom: 8px; background-color: #f9f9f9; border-radius: 4px; }
+    .demande-input, .condamnation-input { gap: 10px; margin-bottom: 3px; line-height: normal; flex-wrap: nowrap; }
+    label { font-weight: normal; color: black !important; flex-basis: 30%; min-width: 150px; }
+
+    /* Apparence "case" pour les champs de saisie (select) */
+    select {
+        border: 1px solid #aaa !important; 
+        background-color: white !important;
+        color: black !important;
+        padding: 2px 5px; font-weight: bold; flex-grow: 1; pointer-events: none;
+        -webkit-appearance: none; /* Supprime la flèche du select */
+        -moz-appearance: none;
+        appearance: none;
+    }
+    
+    /* Input de détail (Autre) : doit ressembler à une case de texte noir */
+    .input-autre {
+        border: 1px solid #aaa !important;
+        background-color: white !important;
+        color: black !important; /* Force la couleur du texte saisi en noir */
+        padding: 2px 5px;
+        font-weight: bold;
+        flex-grow: 1; 
+        pointer-events: none;
+        /* Règle pour imprimer uniquement la valeur, pas l'input */
+        overflow: hidden; 
+    }
+
+    /* GESTION DES MONTANTS AVEC LE SYMBOLE EURO EN IMPRESSION */
+    .input-with-euro {
+        position: relative; flex-grow: 1; min-width: 100px;
+        border: 1px solid #aaa !important; 
+        background-color: white !important; 
+        padding: 2px 5px; 
+    }
+    .input-with-euro input {
+        border: none !important; 
+        background-color: transparent !important;
+        color: black !important; /* Force la couleur du montant en noir */
+        padding: 0; text-align: right; font-weight: bold;
+        padding-right: 15px; 
+    }
+    .euro-suffix {
+        color: black !important;
+        right: 3px;
+    }
+
+    /* Affichage des résultats (Débouté + Action claire) */
+    .resultat-ligne {
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 8px 10px; 
+        border: 1px solid #ddd; 
+        margin-bottom: 8px; 
+        background-color: white; border-radius: 4px;
+    }
+    .resultat-label { font-weight: bold; color: black !important; flex-basis: 30%; }
+    .resultat-valeur { color: black !important; font-weight: bold; flex-basis: 15%; text-align: right; }
+    
+    /* Affichage de l'action complète dans sa propre "case" */
+    .action-imprimable {
+        color: black !important; font-style: normal; font-size: 0.9em;
+        margin-left: 10px; font-weight: bold;
+        border: 1px solid #888; background-color: #f0f0f0;
+        padding: 3px 8px; flex-basis: 50%; text-align: left;
+    }
+}
