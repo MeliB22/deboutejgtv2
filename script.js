@@ -8,8 +8,8 @@ const OPTIONS_LIBELLES = [
 ];
 
 const OPTIONS_CHOIX_RESULTAT = [
-    { value: "Somme à passer au crédit en rubrique 686", text: "Crédit Rubrique 686" },
-    { value: "Somme à passer au débit en ODL", text: "Débit ODL" },
+    { value: "Somme à passer au crédit en rubrique 686", text: "Crédit en Rubrique 686" },
+    { value: "Somme à passer au débit en ODL", text: "Débit en ODL" },
     { value: "Autre", text: "Autre..." }
 ];
 
@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 
                 // CORRECTION : "A passer sur le compte AU"
-                actionText = `A passer sur le compte au ${action}`;
+                actionText = `A passer sur le compte ${action}`;
                 
                 actionImprimable.textContent = actionText;
                 actionImprimable.classList.remove('hidden');
